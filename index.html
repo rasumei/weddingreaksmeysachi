@@ -174,7 +174,7 @@
     </style>
 </head>
 <body class="bg-champagne text-gray-800 antialiased overflow-x-hidden locked">
-    <audio id="bgm" autoplay loop muted>
+    <audio id="bgm" loop>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
@@ -619,5 +619,17 @@
             for(let i=0; i<20; i++) setTimeout(createPetal, i * 150);
         };
     </script>
+
+    <script>
+    window.addEventListener('load', () => {
+        const music = document.getElementById('bg-music');
+        // Try to play music
+        music.play().catch(() => {
+            // Fallback: wait for user interaction
+            document.body.addEventListener('click', () => music.play(), { once: true });
+        });
+    });
+    </script>
+    
 </body>
 </html>
