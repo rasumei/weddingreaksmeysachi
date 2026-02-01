@@ -174,9 +174,7 @@
     </style>
 </head>
 <body class="bg-champagne text-gray-800 antialiased overflow-x-hidden locked">
-    <audio id="bgm" autoplay loop muted>
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
+
 
     <!-- Home Page Layer -->
     <div id="home-layer">
@@ -620,27 +618,39 @@
         };
     </script>
 
+    <audio id="bg-music" loop>
+      <source src="music.mp3" type="audio/mpeg">
+    </audio>
     
     <script>
     const music = document.getElementById('bg-music');
     
-    // Try to autoplay on page load
+    // Flag to check if music started
+    let musicStarted = false;
+    
+    // Try to play on page load
     window.addEventListener('load', () => {
-        music.play().catch(() => {
-            // Wait for user interaction if autoplay is blocked
-            document.body.addEventListener('click', () => music.play(), { once: true });
+        music.play().then(() => {
+            musicStarted = true;
+        }).catch(() => {
+            // Fallback: wait for first user interaction
+            document.body.addEventListener('click', () => {
+                music.play().then(() => { musicStarted = true; });
+            }, { once: true });
         });
     });
     
     // Pause/resume music when tab visibility changes
     document.addEventListener('visibilitychange', () => {
+        if (!musicStarted) return; // ignore if music hasn’t started
         if (document.hidden) {
-            music.pause(); // pause when tab is hidden
+            music.pause(); // pause when minimized or tab hidden
         } else {
-            music.play().catch(() => {}); // try resume when tab is visible
+            music.play().catch(() => {}); // resume when tab visible
         }
     });
     </script>
+
 
     
     
