@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reaksmey & Sachy - Wedding Invitation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500&family=Kantumruy+Pro:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'floral-pink': '#FDF2F8',
+                        'sakura': '#FFB7C5',
+                        'floral-dark': '#BE185D',
+                        'champagne': '#F9F7F2',
+                    },
+                    fontFamily: {
+                        'script': ['"Great Vibes"', 'cursive'],
+                        'serif': ['"Cormorant Garamond"', 'serif'],
+                        'sans': ['"Montserrat"', 'sans-serif'],
+                        'khmer': ['"Kantumruy Pro"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body.locked { overflow: hidden; height: 100vh; }
+
+        #home-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #fcf8f9; z-index: 1000; display: flex;
+            align-items: center; justify-content: center;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+        }
+        #home-layer.opened { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+
+        .sakura-branch {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Glassmorphism Effect for Central Card */
+        .envelope-card {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            padding: 3rem 1.5rem; 
+            border-radius: 20px;
+            box-shadow: 0 40px 80px rgba(190, 24, 93, 0.08); 
+            text-align: center;
+            width: 90%; 
+            max-width: 480px; 
+            position: relative; 
+            z-index: 20;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        /* Bird Animation Styles */
+        .bird-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 25;
+            overflow: hidden;
+        }
+
+        .bird {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            color: #9D174D;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        @keyframes bird-one-flight {
+            0% { transform: translate(-10vw, 80vh) rotate(-20deg) scale(0.6); }
+            20% { transform: translate(30vw, 50vh) rotate(10deg) scale(0.8); }
+            40% { transform: translate(50vw, 20vh) rotate(-10deg) scale(1); }
+            50% { transform: translate(60vw, 25vh) rotate(45deg) scale(0.9); }
+            70% { transform: translate(40vw, 60vh) rotate(100deg) scale(0.7); }
+            85% { transform: translate(20vw, 40vh) rotate(10deg) scale(0.6); }
+            100% { transform: translate(-10vw, 10vh) rotate(-10deg) scale(0.5); }
+        }
+
+        @keyframes bird-two-flight {
+            0% { transform: translate(110vw, 20vh) scaleX(-1) rotate(10deg) scale(0.6); }
+            25% { transform: translate(70vw, 40vh) scaleX(-1) rotate(-10deg) scale(0.8); }
+            45% { transform: translate(55vw, 25vh) scaleX(-1) rotate(-30deg) scale(1); }
+            55% { transform: translate(45vw, 20vh) scaleX(-1) rotate(0deg) scale(0.9); }
+            75% { transform: translate(80vw, 60vh) scaleX(-1) rotate(30deg) scale(0.7); }
+            100% { transform: translate(120vw, 80vh) scaleX(-1) rotate(10deg) scale(0.5); }
+        }
+
+        .bird-1 { animation: bird-one-flight 14s infinite linear; }
+        .bird-2 { animation: bird-two-flight 14s infinite linear; animation-delay: 0.5s; }
+
+        .wing-left, .wing-right {
+            transform-origin: center;
+            animation: flap 0.2s infinite alternate ease-in-out;
+        }
+        @keyframes flap {
+            from { transform: scaleY(1) rotate(0deg); }
+            to { transform: scaleY(0.4) rotate(5deg); }
+        }
+
+        /* Wax Seal */
+        .wax-seal {
+            width: 90px; height: 90px; 
+            background: radial-gradient(circle at 30% 30%, #e11d48 0%, #be185d 45%, #881337 100%);
+            border-radius: 50%; 
+            margin: 1.5rem auto 0; 
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            box-shadow: inset -4px -4px 10px rgba(0,0,0,0.4), inset 4px 4px 10px rgba(255,255,255,0.2), 0 15px 30px rgba(190, 24, 93, 0.3);
+            position: relative;
+        }
+
+        /* Sakura Petals */
+        .petal {
+            position: fixed; 
+            background-color: #ffb7c5; 
+            border-radius: 150% 0 150% 0;
+            opacity: 0; 
+            pointer-events: none; 
+            z-index: 9999;
+            transform-origin: center;
+        }
+        .falling-petal { animation: fall-complex linear forwards; }
+        @keyframes fall-complex {
+            0% { opacity: 0; transform: translate(0, -10vh) rotate(0deg) scale(1); }
+            10% { opacity: 0.8; }
+            25% { transform: translate(-20px, 15vh) rotate(45deg) scale(0.9); }
+            50% { transform: translate(30px, 45vh) rotate(180deg) scale(1); }
+            75% { transform: translate(-40px, 75vh) rotate(270deg) scale(0.9); }
+            90% { opacity: 0.8; }
+            100% { opacity: 0; transform: translate(50px, 110vh) rotate(360deg) scale(1); }
+        }
+
+        /* Gallery and Agenda */
+        .gallery-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 10px; }
+        @media (min-width: 768px) { .gallery-container { grid-template-columns: repeat(4, 1fr); gap: 20px; padding: 0; } }
+        .photo-card {
+            background: white; padding: 8px 8px 24px 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.5s ease-in-out;
+            cursor: pointer; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .photo-card:hover { transform: scale(1.1) rotate(0deg) !important; z-index: 50; box-shadow: 0 20px 40px rgba(0,0,0,0.1); opacity: 1 !important; }
+        .photo-wrapper { width: 100%; aspect-ratio: 1/1; background: #fdfdfd; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .photo-card img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        
+        .agenda-grid { display: grid; grid-template-columns: 4rem 1fr; gap: 0.75rem; align-items: center; }
+        .agenda-line-v { position: absolute; left: 2rem; top: 0; bottom: 0; width: 1px; background: #BE185D; opacity: 0.1; }
+
+        /* Generic Branch Component Style */
+        .branch-svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05)); }
+        
+        /* Realistic Branch Definition */
+        .wood { stroke: #3e2723; stroke-linecap: round; fill: none; }
+        .blossom-light { fill: #fff0f5; }
+        .blossom-mid { fill: #ffb7c5; }
+        .blossom-dark { fill: #fb9db1; }
+    </style>
+</head>
+<body class="bg-champagne text-gray-800 antialiased overflow-x-hidden locked">
+    <audio id="bgm" autoplay loop muted>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Home Page Layer -->
+    <div id="home-layer">
+        <div class="bird-container">
+            <svg class="bird bird-1" viewBox="0 0 100 100" fill="currentColor">
+                <path class="body" d="M10,50 Q40,40 70,50 Q90,55 95,50 Q85,45 60,40 L10,50 Z" />
+                <path class="wing-left" d="M35,45 Q50,0 75,35" fill="currentColor" opacity="0.8"/>
+                <path class="wing-right" d="M40,55 Q55,90 75,60" fill="currentColor" opacity="0.6"/>
+            </svg>
+            <svg class="bird bird-2" viewBox="0 0 100 100" fill="currentColor">
+                <path class="body" d="M10,50 Q40,40 70,50 Q90,55 95,50 Q85,45 60,40 L10,50 Z" />
+                <path class="wing-left" d="M35,45 Q50,0 75,35" fill="currentColor" opacity="0.8"/>
+                <path class="wing-right" d="M40,55 Q55,90 75,60" fill="currentColor" opacity="0.6"/>
+            </svg>
+        </div>
+
+        <!-- SAKURA BRANCH (Top Left) -->
+        <div class="sakura-branch top-0 left-0 w-full max-w-[500px] md:max-w-[700px]">
+            <svg viewBox="0 0 800 500" class="branch-svg">
+                <path class="wood" d="M-20 -20 Q150 40 300 180 T600 250" stroke-width="12" />
+                <path class="wood" d="M150 40 Q280 20 450 10" stroke-width="6" />
+                <path class="wood" d="M220 100 Q350 120 480 80" stroke-width="4" />
+                <path class="wood" d="M350 200 Q500 180 650 210" stroke-width="5" />
+                <path class="wood" d="M420 230 Q450 350 500 400" stroke-width="3" />
+                <g class="blossoms">
+                    <!-- Cluster 1 -->
+                    <circle class="blossom-mid" cx="450" cy="10" r="22" />
+                    <circle class="blossom-light" cx="468" cy="15" r="10" />
+                    <circle class="blossom-dark" cx="438" cy="0" r="8" />
+                    <!-- Cluster 2 -->
+                    <circle class="blossom-dark" cx="600" cy="250" r="28" />
+                    <circle class="blossom-mid" cx="635" cy="240" r="15" />
+                    <circle class="blossom-light" cx="615" cy="275" r="9" />
+                    <!-- Cluster 3 -->
+                    <circle class="blossom-mid" cx="480" cy="80" r="18" />
+                    <circle class="blossom-light" cx="500" cy="85" r="6" />
+                    <circle class="blossom-dark" cx="470" cy="95" r="11" />
+                    <!-- Scattered -->
+                    <circle class="blossom-mid" cx="650" cy="210" r="14" />
+                    <circle class="blossom-dark" cx="500" cy="400" r="24" />
+                    <circle class="blossom-light" cx="300" cy="180" r="32" />
+                    <circle class="blossom-mid" cx="315" cy="210" r="12" />
+                </g>
+            </svg>
+        </div>
+
+        <!-- SAKURA BRANCH (Bottom Right) -->
+        <div class="sakura-branch bottom-0 right-0 w-full max-w-[500px] md:max-w-[700px] transform rotate-180">
+            <svg viewBox="0 0 800 500" class="branch-svg">
+                <path class="wood" d="M-20 -20 Q200 100 450 120 T750 200" stroke-width="14" />
+                <path class="wood" d="M250 80 Q400 30 550 50" stroke-width="7" />
+                <path class="wood" d="M450 120 Q500 250 600 350" stroke-width="5" />
+                <path class="wood" d="M550 150 Q700 120 780 140" stroke-width="4" />
+                <g class="blossoms">
+                    <!-- Cluster Main -->
+                    <circle class="blossom-dark" cx="750" cy="200" r="35" />
+                    <circle class="blossom-mid" cx="785" cy="225" r="15" />
+                    <circle class="blossom-light" cx="730" cy="240" r="10" />
+                    <!-- Cluster Mid -->
+                    <circle class="blossom-mid" cx="550" cy="50" r="28" />
+                    <circle class="blossom-light" cx="535" cy="80" r="12" />
+                    <!-- Scattered small -->
+                    <circle class="blossom-mid" cx="600" cy="350" r="16" />
+                    <circle class="blossom-light" cx="625" cy="365" r="6" />
+                    <circle class="blossom-dark" cx="780" cy="140" r="20" />
+                    <circle class="blossom-mid" cx="450" cy="120" r="24" />
+                </g>
+            </svg>
+        </div>
+
+        <div class="envelope-card">
+            <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-6">JOIN US IN CELEBRATING</h3>
+            <h2 class="font-script text-6xl md:text-7xl text-floral-dark">Reaksmey</h2>
+            <span class="font-serif text-xl italic text-gray-400 block my-2">&</span>
+            <h2 class="font-script text-6xl md:text-7xl text-floral-dark">Sachy</h2>
+            
+            <div class="mt-6 font-serif text-sm tracking-widest text-gray-600 uppercase">
+                <p>March 27, 2026</p>
+                <div class="w-8 h-[1px] bg-sakura mx-auto my-2"></div>
+                <p>OCIC Wedding Center, Phnom Penh</p>
+            </div>
+
+            <div class="relative inline-block mt-8">
+                <div class="wax-seal" onclick="openInvitation()">
+                    <i class="fas fa-heart text-white/60 text-3xl"></i>
+                </div>
+                <div class="hand-guide">
+                    <i class="fas fa-hand-pointer text-floral-dark/80"></i>
+                </div>
+            </div>
+            <p class="mt-6 font-sans text-[9px] uppercase tracking-[0.3em] text-floral-dark font-medium animate-pulse">Tap the seal to open</p>
+        </div>
+    </div>
+
+    <div id="petal-container"></div>
+
+    <div id="main-content">
+        <!-- Couple Section -->
+        <section class="py-16 md:py-24 bg-white relative overflow-hidden">
+            <!-- Branch Top Left -->
+            <div class="sakura-branch -top-10 -left-10 w-64 md:w-96 opacity-60">
+                <svg viewBox="0 0 400 400">
+                    <path class="wood" d="M0 0 Q100 20 150 150 T250 300" stroke-width="8" />
+                    <path class="wood" d="M80 60 Q200 40 300 20" stroke-width="4" />
+                    <g class="blossoms">
+                        <circle class="blossom-mid" cx="250" cy="300" r="22" />
+                        <circle class="blossom-light" cx="275" cy="310" r="8" />
+                        <circle class="blossom-light" cx="300" cy="20" r="16" />
+                        <circle class="blossom-dark" cx="315" cy="35" r="6" />
+                        <circle class="blossom-dark" cx="150" cy="150" r="10" />
+                        <circle class="blossom-mid" cx="165" cy="140" r="4" />
+                    </g>
+                </svg>
+            </div>
+            <!-- Additional Branch Mid Right -->
+            <div class="sakura-branch top-1/2 -right-16 w-48 md:w-72 opacity-40 transform -translate-y-1/2 scale-x-[-1]">
+                <svg viewBox="0 0 400 400">
+                    <path class="wood" d="M0 200 Q100 180 180 120 T300 50" stroke-width="6" />
+                    <g class="blossoms">
+                        <circle class="blossom-mid" cx="300" cy="50" r="24" />
+                        <circle class="blossom-light" cx="280" cy="40" r="7" />
+                        <circle class="blossom-dark" cx="320" cy="65" r="11" />
+                        <circle class="blossom-light" cx="180" cy="120" r="14" />
+                        <circle class="blossom-dark" cx="195" cy="135" r="5" />
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="max-w-4xl mx-auto px-4 relative z-10">
+                <div class="text-center mb-10">
+                    <h3 class="font-serif text-[10px] uppercase tracking-[0.6em] text-gray-400 mb-2">Together with Families</h3>
+                    <h2 class="font-script text-6xl text-floral-dark">The Couple</h2>
+                </div>
+                
+                <div class="flex items-center justify-center gap-3 sm:gap-10">
+                    <div class="flex-1 text-center">
+                        <img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?q=80&w=300&h=300&fit=crop" class="w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 rounded-full border-4 border-white shadow-lg mx-auto object-cover mb-3" alt="Groom">
+                        <h4 class="font-script text-2xl md:text-3xl text-floral-dark">Reaksmey</h4>
+                    </div>
+                    <div class="text-floral-dark/20 font-script text-3xl sm:text-5xl">&</div>
+                    <div class="flex-1 text-center">
+                        <img src="https://images.unsplash.com/photo-1549333353-c261b273b07b?q=80&w=300&h=300&fit=crop" class="w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 rounded-full border-4 border-white shadow-lg mx-auto object-cover mb-3" alt="Bride">
+                        <h4 class="font-script text-2xl md:text-3xl text-floral-dark">Sachy</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Program Section -->
+        <section class="py-16 bg-floral-pink/20 relative overflow-hidden">
+            <!-- Branch Top Right -->
+            <div class="sakura-branch top-20 -right-20 w-64 md:w-96 opacity-30 transform scale-x-[-1]">
+                <svg viewBox="0 0 400 400">
+                    <path class="wood" d="M0 0 Q150 50 180 250 T220 380" stroke-width="10" />
+                    <path class="wood" d="M100 100 Q250 80 350 150" stroke-width="5" />
+                    <g class="blossoms">
+                        <circle class="blossom-mid" cx="220" cy="380" r="34" />
+                        <circle class="blossom-light" cx="245" cy="395" r="14" />
+                        <circle class="blossom-dark" cx="200" cy="370" r="8" />
+                        <circle class="blossom-dark" cx="350" cy="150" r="20" />
+                        <circle class="blossom-mid" cx="370" cy="135" r="9" />
+                        <circle class="blossom-light" cx="340" cy="170" r="6" />
+                    </g>
+                </svg>
+            </div>
+            <!-- Branch Bottom Left -->
+            <div class="sakura-branch -bottom-10 -left-10 w-56 md:w-80 opacity-25">
+                <svg viewBox="0 0 400 400">
+                    <path class="wood" d="M0 400 Q100 350 150 250" stroke-width="8" />
+                    <g class="blossoms">
+                        <circle class="blossom-mid" cx="150" cy="250" r="30" />
+                        <circle class="blossom-light" cx="175" cy="275" r="12" />
+                        <circle class="blossom-dark" cx="130" cy="235" r="9" />
+                        <circle class="blossom-light" cx="145" cy="220" r="5" />
+                    </g>
+                </svg>
+            </div>
+
+            <div class="max-w-md mx-auto px-6 relative z-10">
+                <div class="text-center mb-10">
+                    <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-2">Program</h3>
+                    <h2 class="font-script text-6xl text-floral-dark">Our Day</h2>
+                </div>
+                
+                <div class="relative space-y-4">
+                    <div class="agenda-line-v"></div>
+                    <div class="agenda-grid relative z-10"><div class="py-1 bg-floral-dark text-white text-[9px] text-center rounded-full font-sans shadow-sm">07:00 AM</div><div class="font-khmer text-sm text-gray-700">ពិធីហែជំនួន</div></div>
+                    <div class="agenda-grid relative z-10"><div class="py-1 bg-floral-dark text-white text-[9px] text-center rounded-full font-sans shadow-sm">07:30 AM</div><div class="font-khmer text-sm text-gray-700">ពិសារអាហារពេលព្រឹក</div></div>
+                    <div class="agenda-grid relative z-10"><div class="py-1 bg-floral-dark text-white text-[9px] text-center rounded-full font-sans shadow-sm">08:00 AM</div><div class="font-khmer text-sm text-gray-700">ពិធីហែបំពាក់ចិញ្ជៀន</div></div>
+                    <div class="agenda-grid relative z-10"><div class="py-1 bg-floral-dark text-white text-[9px] text-center rounded-full font-sans shadow-sm">08:30 AM</div><div class="font-khmer text-sm text-gray-700">ពិធីសូត្រមន្ត</div></div>
+                    <div class="agenda-grid relative z-10"><div class="py-1 bg-floral-dark text-white text-[9px] text-center rounded-full font-sans shadow-sm">09:30 AM</div><div class="font-khmer text-sm text-gray-700">ពិធីកាត់សក់បង្កក់សិរី</div></div>
+                    <div class="agenda-grid relative z-10"><div class="py-1 bg-floral-dark text-white text-[9px] text-center rounded-full font-sans shadow-sm">11:30 AM</div><div class="font-khmer text-sm text-gray-700">សំពះផ្ទឹមសែនចងដៃ</div></div>
+                    <div class="agenda-grid relative z-10"><div class="py-1 bg-floral-dark text-white text-[9px] text-center rounded-full font-sans shadow-sm">12:30 PM</div><div class="font-khmer text-sm text-gray-700">ពិសារអាហារថ្ញៃត្រង់</div></div>
+                    <div class="agenda-grid relative z-10 pt-2 border-t border-floral-dark/10"><div class="py-1 bg-floral-dark text-white text-[9px] text-center rounded-full font-sans shadow-sm">05:00 PM</div><div class="font-khmer text-sm font-bold text-floral-dark">កម្មវិធីពេលល្ងាច</div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="py-16 bg-white overflow-hidden relative">
+            <!-- Branch Bottom Left -->
+            <div class="sakura-branch bottom-10 -left-10 w-64 md:w-96 opacity-40">
+                <svg viewBox="0 0 400 400">
+                    <path class="wood" d="M0 400 Q150 350 250 200 T350 100" stroke-width="12" />
+                    <path class="wood" d="M150 280 Q250 300 320 350" stroke-width="6" />
+                    <g class="blossoms">
+                        <circle class="blossom-mid" cx="350" cy="100" r="35" />
+                        <circle class="blossom-light" cx="380" cy="120" r="14" />
+                        <circle class="blossom-dark" cx="325" cy="85" r="9" />
+                        <circle class="blossom-light" cx="320" cy="350" r="26" />
+                        <circle class="blossom-mid" cx="345" cy="370" r="10" />
+                        <circle class="blossom-dark" cx="250" cy="200" r="16" />
+                        <circle class="blossom-mid" cx="270" cy="180" r="7" />
+                    </g>
+                </svg>
+            </div>
+            <!-- Additional Branch Top Right -->
+            <div class="sakura-branch -top-16 right-0 w-48 md:w-80 opacity-30 transform scale-y-[-1]">
+                <svg viewBox="0 0 400 400">
+                    <path class="wood" d="M400 0 Q300 50 200 150" stroke-width="10" />
+                    <g class="blossoms">
+                        <circle class="blossom-mid" cx="200" cy="150" r="30" />
+                        <circle class="blossom-light" cx="230" cy="135" r="12" />
+                        <circle class="blossom-dark" cx="180" cy="170" r="8" />
+                    </g>
+                </svg>
+            </div>
+
+            <div class="text-center mb-12">
+                <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-2">Moments</h3>
+                <h2 class="font-script text-6xl text-floral-dark">Our Memories</h2>
+            </div>
+            
+            <div class="max-w-4xl mx-auto px-4">
+                <div id="gallery-grid" class="gallery-container">
+                    <div class="photo-card" style="transform: rotate(-2deg);"><div class="photo-wrapper"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600"></div></div>
+                    <div class="photo-card" style="transform: rotate(3deg);"><div class="photo-wrapper"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600"></div></div>
+                    <div class="photo-card" style="transform: rotate(-1deg);"><div class="photo-wrapper"><img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=600"></div></div>
+                    <div class="photo-card" style="transform: rotate(2deg);"><div class="photo-wrapper"><img src="https://images.unsplash.com/photo-1522673607200-1645062cd958?q=80&w=600"></div></div>
+                    <div class="photo-card" style="transform: rotate(1deg);"><div class="photo-wrapper"><img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?q=80&w=600"></div></div>
+                    <div class="photo-card" style="transform: rotate(-3deg);"><div class="photo-wrapper"><img src="https://images.unsplash.com/photo-1510076857177-7470076d4098?q=80&w=600"></div></div>
+                    <div class="photo-card" style="transform: rotate(2deg);"><div class="photo-wrapper"><img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=600"></div></div>
+                    <div class="photo-card" style="transform: rotate(-2deg);"><div class="photo-wrapper"><img src="https://images.unsplash.com/photo-1465495910483-0d50239167e4?q=80&w=600"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section class="py-16 bg-champagne relative overflow-hidden">
+            <!-- Branch Top Right -->
+            <div class="sakura-branch -top-10 -right-10 w-64 md:w-96 opacity-50 transform scale-x-[-1]">
+                <svg viewBox="0 0 400 400">
+                    <path class="wood" d="M0 0 Q100 80 150 200 T300 350" stroke-width="9" />
+                    <path class="wood" d="M50 30 Q150 20 250 50" stroke-width="4" />
+                    <g class="blossoms">
+                        <circle class="blossom-mid" cx="300" cy="350" r="32" />
+                        <circle class="blossom-light" cx="330" cy="375" r="14" />
+                        <circle class="blossom-dark" cx="280" cy="370" r="9" />
+                        <circle class="blossom-light" cx="250" cy="50" r="18" />
+                        <circle class="blossom-dark" cx="268" cy="40" r="7" />
+                        <circle class="blossom-mid" cx="235" cy="65" r="5" />
+                    </g>
+                </svg>
+            </div>
+            <!-- Branch Center Left (Subtle) -->
+            <div class="sakura-branch top-1/2 -left-20 w-56 md:w-80 opacity-20 transform -translate-y-1/2">
+                <svg viewBox="0 0 400 400">
+                    <path class="wood" d="M0 200 Q150 250 200 350" stroke-width="12" />
+                    <g class="blossoms">
+                        <circle class="blossom-dark" cx="200" cy="350" r="28" />
+                        <circle class="blossom-light" cx="180" cy="330" r="11" />
+                        <circle class="blossom-mid" cx="220" cy="370" r="6" />
+                    </g>
+                </svg>
+            </div>
+
+            <div class="max-w-2xl mx-auto px-6 text-center relative z-10">
+                <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-2">Location</h3>
+                <h2 class="font-script text-6xl text-floral-dark mb-10">The Venue</h2>
+                <div class="bg-white p-10 rounded-2xl shadow-sm border border-pink-50 inline-block w-full">
+                    <div class="mb-6">
+                        <i class="fas fa-map-marker-alt text-floral-dark text-3xl mb-4"></i>
+                        <h4 class="font-serif text-2xl mb-2 text-floral-dark">OCIC Wedding Center</h4>
+                        <p class="font-khmer text-gray-600 text-sm">Building C, Chroy Changvar<br>Phnom Penh, Cambodia</p>
+                    </div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=OCIC+Wedding+Center+Chroy+Changvar" target="_blank" class="inline-flex items-center justify-center px-8 py-4 bg-floral-dark text-white rounded-full font-sans text-[10px] tracking-widest uppercase hover:opacity-90 transition shadow-md">
+                        <i class="fas fa-location-arrow mr-3"></i> Open in Google Maps
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gift Section -->
+        <section class="py-16 bg-white border-t border-pink-50 relative overflow-hidden">
+             <!-- Branch Bottom Right -->
+             <div class="sakura-branch -bottom-20 -right-20 w-64 md:w-96 opacity-30 transform rotate-12">
+                <svg viewBox="0 0 400 400">
+                    <path class="wood" d="M400 400 Q250 350 150 200 T50 0" stroke-width="12" />
+                    <path class="wood" d="M250 300 Q150 320 50 350" stroke-width="6" />
+                    <g class="blossoms">
+                        <circle class="blossom-mid" cx="50" cy="350" r="30" />
+                        <circle class="blossom-light" cx="75" cy="375" r="13" />
+                        <circle class="blossom-dark" cx="30" cy="340" r="8" />
+                        <circle class="blossom-dark" cx="150" cy="200" r="25" />
+                        <circle class="blossom-mid" cx="175" cy="225" r="11" />
+                        <circle class="blossom-light" cx="135" cy="180" r="6" />
+                    </g>
+                </svg>
+            </div>
+            <!-- Additional Branch Top Left -->
+            <div class="sakura-branch -top-10 -left-16 w-48 md:w-72 opacity-25">
+                <svg viewBox="0 0 400 400">
+                    <path class="wood" d="M0 0 Q100 50 150 150" stroke-width="8" />
+                    <g class="blossoms">
+                        <circle class="blossom-light" cx="150" cy="150" r="18" />
+                        <circle class="blossom-mid" cx="175" cy="165" r="9" />
+                        <circle class="blossom-dark" cx="135" cy="140" r="4" />
+                    </g>
+                </svg>
+            </div>
+
+            <div class="max-w-md mx-auto px-6 text-center relative z-10">
+                <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-2">Best Wishes</h3>
+                <h2 class="font-script text-5xl text-floral-dark mb-6">Wedding Gift</h2>
+                <div class="bg-champagne p-6 rounded-2xl border border-pink-100 inline-block shadow-sm">
+                    <div class="w-32 h-32 bg-white flex items-center justify-center mb-4 mx-auto rounded-lg shadow-inner">
+                        <i class="fas fa-qrcode text-5xl text-gray-100"></i>
+                    </div>
+                    <p class="font-bold text-floral-dark font-sans text-xs tracking-widest uppercase">ABA Bank</p>
+                    <p class="text-gray-400 text-[10px] font-sans">001 234 567 (Reaksmey)</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="bg-champagne py-12 text-center relative overflow-hidden">
+            <!-- Final Decorative Branches for Footer -->
+            <div class="sakura-branch -bottom-5 -left-10 w-40 opacity-40">
+                <svg viewBox="0 0 200 200">
+                    <path class="wood" d="M0 200 Q100 150 150 100" stroke-width="4"/>
+                    <g class="blossoms">
+                        <circle class="blossom-mid" cx="150" cy="100" r="14"/>
+                        <circle class="blossom-light" cx="168" cy="112" r="6"/>
+                        <circle class="blossom-dark" cx="140" cy="90" r="4"/>
+                    </g>
+                </svg>
+            </div>
+            <div class="sakura-branch -bottom-5 -right-10 w-40 opacity-40 scale-x-[-1]">
+                <svg viewBox="0 0 200 200">
+                    <path class="wood" d="M0 200 Q100 150 150 100" stroke-width="4"/>
+                    <g class="blossoms">
+                        <circle class="blossom-mid" cx="150" cy="100" r="14"/>
+                        <circle class="blossom-light" cx="168" cy="112" r="6"/>
+                        <circle class="blossom-dark" cx="140" cy="90" r="4"/>
+                    </g>
+                </svg>
+            </div>
+            <p class="font-script text-3xl text-floral-dark mb-2">Reaksmey & Sachy</p>
+            <p class="font-serif uppercase tracking-[0.4em] text-[8px] text-gray-400">27 . 03 . 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        function openInvitation() {
+        const homeLayer = document.getElementById('home-layer');
+        if (homeLayer) {
+            homeLayer.classList.add('opened');
+        }
+
+        document.body.classList.remove('locked');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+
+        // 🎵 UNMUTE + PLAY MUSIC
+        const audio = document.getElementById('bgm');
+        if (audio) {
+            audio.muted = false;
+            audio.volume = 0.6; // adjust volume (0.0 – 1.0)
+            audio.play().catch(() => {});
+        }
+
+        startSoftShuffle();
+        }
+
+        function startSoftShuffle() {
+            const cards = Array.from(document.querySelectorAll('.photo-card'));
+            if (cards.length === 0) return;
+            cards.forEach((card, index) => {
+                const cycle = () => {
+                    const delay = 10000 + (Math.random() * 4000); 
+                    setTimeout(() => { softSwap(card); cycle(); }, delay);
+                };
+                setTimeout(cycle, index * 2000);
+            });
+        }
+
+        function softSwap(card) {
+            const container = document.getElementById('gallery-grid');
+            if (!container) return;
+            const cards = Array.from(container.children);
+            const cardIndex = cards.indexOf(card);
+            let targetIndex = Math.floor(Math.random() * cards.length);
+            while(targetIndex === cardIndex) targetIndex = Math.floor(Math.random() * cards.length);
+            const targetCard = cards[targetIndex];
+            card.style.opacity = '0';
+            targetCard.style.opacity = '0';
+            setTimeout(() => {
+                const nextTarget = targetCard.nextSibling;
+                const nextCard = card.nextSibling;
+                if (nextCard === targetCard) container.insertBefore(targetCard, card);
+                else if (nextTarget === card) container.insertBefore(card, targetCard);
+                else { container.insertBefore(card, nextTarget); container.insertBefore(targetCard, nextCard); }
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    targetCard.style.opacity = '1';
+                    card.style.transform = `rotate(${(Math.random()*6-3).toFixed(1)}deg) scale(1)`;
+                    targetCard.style.transform = `rotate(${(Math.random()*6-3).toFixed(1)}deg) scale(1)`;
+                }, 100);
+            }, 1500);
+        }
+
+        function createPetal() {
+            const container = document.getElementById('petal-container');
+            if (!container) return;
+            const petal = document.createElement('div');
+            petal.className = 'petal falling-petal';
+            const sizeValue = Math.random() * 8 + 6;
+            petal.style.width = sizeValue + 'px';
+            petal.style.height = sizeValue + 'px';
+            petal.style.left = Math.random() * 100 + 'vw';
+            const colors = ['#FFB7C5', '#FFC0CB', '#FBCCE7', '#FFF0F5', '#fce7f3'];
+            petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            const duration = Math.random() * 5 + 7;
+            petal.style.animationDuration = duration + 's';
+            petal.style.animationDelay = (Math.random() * 2) + 's';
+            container.appendChild(petal);
+            setTimeout(() => petal.remove(), (duration + 2) * 1000);
+        }
+
+        window.onload = () => {
+            setInterval(createPetal, 350); 
+            for(let i=0; i<20; i++) setTimeout(createPetal, i * 150);
+        };
+    </script>
+</body>
+</html>
