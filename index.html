@@ -174,7 +174,7 @@
     </style>
 </head>
 <body class="bg-champagne text-gray-800 antialiased overflow-x-hidden locked">
-    <audio id="bgm" loop>
+    <audio id="bgm" autoplay loop muted>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
@@ -249,7 +249,7 @@
 
         <div class="envelope-card">
             <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-6">JOIN US IN CELEBRATING</h3>
-            <h2 class="font-script text-6xl md:text-7xl text-floral-dark">Reaksmey1</h2>
+            <h2 class="font-script text-6xl md:text-7xl text-floral-dark">Reaksmey2</h2>
             <span class="font-serif text-xl italic text-gray-400 block my-2">&</span>
             <h2 class="font-script text-6xl md:text-7xl text-floral-dark">Sachy</h2>
             
@@ -618,17 +618,6 @@
             setInterval(createPetal, 350); 
             for(let i=0; i<20; i++) setTimeout(createPetal, i * 150);
         };
-    </script>
-
-    <script>
-    window.addEventListener('load', () => {
-        const music = document.getElementById('bg-music');
-        // Try to play music
-        music.play().catch(() => {
-            // Fallback: wait for user interaction
-            document.body.addEventListener('click', () => music.play(), { once: true });
-        });
-    });
     </script>
     
 </body>
