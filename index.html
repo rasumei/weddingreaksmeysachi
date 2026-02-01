@@ -249,7 +249,7 @@
 
         <div class="envelope-card">
             <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-6">JOIN US IN CELEBRATING</h3>
-            <h2 class="font-script text-6xl md:text-7xl text-floral-dark">Reaksmey2</h2>
+            <h2 class="font-script text-6xl md:text-7xl text-floral-dark">Reaksmey3</h2>
             <span class="font-serif text-xl italic text-gray-400 block my-2">&</span>
             <h2 class="font-script text-6xl md:text-7xl text-floral-dark">Sachy</h2>
             
@@ -619,6 +619,30 @@
             for(let i=0; i<20; i++) setTimeout(createPetal, i * 150);
         };
     </script>
+
+    
+    <script>
+    const music = document.getElementById('bg-music');
+    
+    // Try to autoplay on page load
+    window.addEventListener('load', () => {
+        music.play().catch(() => {
+            // Wait for user interaction if autoplay is blocked
+            document.body.addEventListener('click', () => music.play(), { once: true });
+        });
+    });
+    
+    // Pause/resume music when tab visibility changes
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            music.pause(); // pause when tab is hidden
+        } else {
+            music.play().catch(() => {}); // try resume when tab is visible
+        }
+    });
+    </script>
+
+    
     
 </body>
 </html>
