@@ -534,8 +534,6 @@
         </section>
 
 
-
-
         <!-- Gallery Section -->
         <section class="py-20 bg-white overflow-hidden relative">
             <div class="sakura-branch bottom-10 -left-10 w-64 md:w-96 opacity-40">
@@ -582,8 +580,7 @@
                     </button>
                 </div>
             </div>
-        </section>
-        
+        </section>        
 
         <!-- Location Section -->
         <section class="py-16 bg-champagne relative overflow-hidden">
@@ -700,11 +697,24 @@
     </div>
 
     <script>
-        function openInvitation() {
-        const homeLayer = document.getElementById('home-layer');
-        if (homeLayer) {
-            homeLayer.classList.add('opened');
+
+         // Gallery logic targeting your folder structure: pic/pic1.png, pic/pic2.png, etc.
+        const pictures = Array.from({length: 25}, (_, i) => `pic/pic${i+1}.png`);
+        let currentBatch = 0;
+        const BATCH_SIZE = 9;
+
+
+       function openInvitation() {
+            document.getElementById('home-layer').classList.add('opened');
+            document.body.classList.remove('locked');
+            const homeLayer = document.getElementById('home-layer');
+            if (homeLayer) {
+                homeLayer.classList.add('opened');
+            
+            // Start loading first set of images immediately upon opening
+            loadMoreImages();
         }
+
 
         document.body.classList.remove('locked');
         window.scrollTo({ top: 0, behavior: 'instant' });
@@ -752,7 +762,7 @@
             setTimeout(() => petal.remove(), (duration + 2) * 1000);
         }
 
-                function loadMoreImages() {
+        function loadMoreImages() {
             const container = document.getElementById('gallery-masonry');
             const start = currentBatch * BATCH_SIZE;
             const end = start + BATCH_SIZE;
@@ -762,7 +772,7 @@
                 const item = document.createElement('div');
                 item.className = 'masonry-item';
                 
-                // Varied aspect ratios for a more organic look (simulated with placeholder logic)
+                // Varied aspect ratios for a more organic look
                 const isTall = (i + start) % 3 === 0;
                 
                 item.innerHTML = `
@@ -772,14 +782,15 @@
                 `;
                 container.appendChild(item);
                 
-                // Staggered reveal
+                // Staggered reveal animation
                 setTimeout(() => {
                     item.classList.add('visible');
-                }, i * 100);
+                }, i * 120);
             });
 
             currentBatch++;
             
+            // Hide button if no more images remain
             if (currentBatch * BATCH_SIZE >= pictures.length) {
                 const btnContainer = document.getElementById('load-more-container');
                 if(btnContainer) btnContainer.style.display = 'none';
@@ -789,6 +800,7 @@
         function loadRemainingImages() {
             loadMoreImages();
         }
+
 
         window.onload = () => {
             setInterval(createPetal, 350); 
