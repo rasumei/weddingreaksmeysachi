@@ -192,8 +192,11 @@
             width: 100%;
             height: auto;
             display: block;
-            border-radius: 2px;
+            object-fit: contain; /* Prevents cropping or stretching */
+            border-radius: 1px;
+            background: #f9f9f9; /* Fallback background */
         }
+
 
         /* Gallery Reveal Animation */
         .masonry-item {
@@ -290,7 +293,7 @@
 
         <div class="envelope-card">
             <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-6">JOIN US IN CELEBRATING</h3>
-            <h2 class="font-script text-6xl md:text-7xl text-floral-dark">Reaksmey1</h2>
+            <h2 class="font-script text-6xl md:text-7xl text-floral-dark">Reaksmey2</h2>
             <span class="font-serif text-xl italic text-gray-400 block my-2">&</span>
             <h2 class="font-script text-6xl md:text-7xl text-floral-dark">Sachy</h2>
             
@@ -772,20 +775,20 @@
                 const item = document.createElement('div');
                 item.className = 'masonry-item';
                 
-                // Varied aspect ratios for a more organic look
-                const isTall = (i + start) % 3 === 0;
-                
+               // Polaroids often look better with the real image taking its natural height
                 item.innerHTML = `
                     <img src="${src}" alt="Memory ${start + i + 1}" loading="lazy" 
-                         class="${isTall ? 'min-h-[250px]' : 'min-h-[180px]'}"
-                         onerror="this.src='https://picsum.photos/seed/${start + i}/400/${isTall ? '600' : '400'}'">
+                         onerror="this.src='https://picsum.photos/seed/${start + i}/600/800'">
                 `;
                 container.appendChild(item);
                 
-                // Staggered reveal animation
-                setTimeout(() => {
+                // Reveal once the specific image has loaded to prevent height jumping
+                const img = item.querySelector('img');
+                if (img.complete) {
                     item.classList.add('visible');
-                }, i * 120);
+                } else {
+                    img.onload = () => item.classList.add('visible');
+                }
             });
 
             currentBatch++;
