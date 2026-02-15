@@ -171,6 +171,34 @@
         .blossom-light { fill: #fff0f5; }
         .blossom-mid { fill: #ffb7c5; }
         .blossom-dark { fill: #fb9db1; }
+        /* Lightbox Styles */
+        #lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            cursor: zoom-out;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        #lightbox.active { display: flex; opacity: 1; }
+        #lightbox img {
+            max-width: 90%;
+            max-height: 80%;
+            margin: auto;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        #lightbox.active img { transform: scale(1); }
+        .close-lightbox {
+            position: absolute;
+            top: 20px; right: 20px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="bg-champagne text-gray-800 antialiased overflow-x-hidden locked">
@@ -267,6 +295,12 @@
             </div>
             <p class="mt-6 font-sans text-[9px] uppercase tracking-[0.3em] text-floral-dark font-medium animate-pulse">Tap the seal to open</p>
         </div>
+    </div>
+
+    <!-- Lightbox Overlay -->
+    <div id="lightbox" onclick="closeLightbox()">
+        <span class="close-lightbox">&times;</span>
+        <img id="lightbox-img" src="" alt="Full View">
     </div>
 
     <div id="petal-container"></div>
@@ -674,7 +708,19 @@
             // Initialize gallery with first batch
             loadMoreImages();
         }
+        function openLightbox(src) {
+            const lb = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lightbox-img');
+            lbImg.src = src;
+            lb.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Stop background scroll
+        }
 
+        function closeLightbox() {
+            const lb = document.getElementById('lightbox');
+            lb.classList.remove('active');
+            document.body.style.overflow = ''; // Resume background scroll
+        }
         function loadMoreImages() {
             const container = document.getElementById('gallery-grid');
             const start = currentBatch * BATCH_SIZE;
@@ -686,6 +732,8 @@
             batch.forEach((src, i) => {
                 const card = document.createElement('div');
                 card.className = 'photo-card';
+                card.onclick = () => openLightbox(src); // Add click handler
+                
                 // Slight random rotation for the scrapbook look
                 const rotate = (Math.random() * 6 - 3).toFixed(1);
                 card.style.transform = `rotate(${rotate}deg) translateY(20px)`;
