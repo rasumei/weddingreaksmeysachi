@@ -217,6 +217,22 @@
         .blossom-light { fill: #fff0f5; }
         .blossom-mid { fill: #ffb7c5; }
         .blossom-dark { fill: #fb9db1; }
+
+                /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(190, 24, 93, 0.1);
+            border-top-color: #BE185D;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .loading .loading-spinner { display: block; }
+        .loading .btn-text { display: none; }
     </style>
 </head>
 <body class="bg-champagne text-gray-800 antialiased overflow-x-hidden locked">
@@ -293,7 +309,7 @@
 
         <div class="envelope-card">
             <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-6">JOIN US IN CELEBRATING</h3>
-            <h2 class="font-script text-6xl md:text-7xl text-floral-dark">Reaksmey2</h2>
+            <h2 class="font-script text-6xl md:text-7xl text-floral-dark">Reaksmey1</h2>
             <span class="font-serif text-xl italic text-gray-400 block my-2">&</span>
             <h2 class="font-script text-6xl md:text-7xl text-floral-dark">Sachy</h2>
             
@@ -764,39 +780,53 @@
             container.appendChild(petal);
             setTimeout(() => petal.remove(), (duration + 2) * 1000);
         }
-
-        function loadMoreImages() {
+        function preloadImage(src) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve({ src, success: true });
+                img.onerror = () => resolve({ src, success: false });
+                img.src = src;
+            });
+        }
+         async function loadMoreImages() {
+            if (isGalleryLoading) return;
+            
+            const btn = document.getElementById('btn-load-more');
             const container = document.getElementById('gallery-masonry');
+            if (!container) return;
+
+            isGalleryLoading = true;
+            if (btn) btn.classList.add('loading');
+
             const start = currentBatch * BATCH_SIZE;
             const end = start + BATCH_SIZE;
-            const batch = pictures.slice(start, end);
+            const batchSources = pictures.slice(start, end);
 
-            batch.forEach((src, i) => {
+            // Preload all images in the batch first for a smooth reveal
+            const results = await Promise.all(batchSources.map(src => preloadImage(src)));
+
+            results.forEach((res, i) => {
                 const item = document.createElement('div');
                 item.className = 'masonry-item';
                 
-               // Polaroids often look better with the real image taking its natural height
-                item.innerHTML = `
-                    <img src="${src}" alt="Memory ${start + i + 1}" loading="lazy" 
-                         onerror="this.src='https://picsum.photos/seed/${start + i}/600/800'">
-                `;
+                // Fallback for missing images
+                const finalSrc = res.success ? res.src : `https://picsum.photos/seed/${start + i}/600/800`;
+                
+                item.innerHTML = `<img src="${finalSrc}" alt="Memory ${start + i + 1}" loading="lazy">`;
                 container.appendChild(item);
                 
-                // Reveal once the specific image has loaded to prevent height jumping
-                const img = item.querySelector('img');
-                if (img.complete) {
+                // Staggered reveal animation
+                setTimeout(() => {
                     item.classList.add('visible');
-                } else {
-                    img.onload = () => item.classList.add('visible');
-                }
+                }, i * 150); 
             });
 
             currentBatch++;
-            
-            // Hide button if no more images remain
+            isGalleryLoading = false;
+            if (btn) btn.classList.remove('loading');
+
             if (currentBatch * BATCH_SIZE >= pictures.length) {
-                const btnContainer = document.getElementById('load-more-container');
-                if(btnContainer) btnContainer.style.display = 'none';
+                if(btn) btn.parentElement.style.display = 'none';
             }
         }
 
