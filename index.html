@@ -148,24 +148,67 @@
             100% { opacity: 0; transform: translate(50px, 110vh) rotate(360deg) scale(1); }
         }
 
-        /* Gallery and Agenda */
-        .gallery-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 10px; }
-        @media (min-width: 768px) { .gallery-container { grid-template-columns: repeat(4, 1fr); gap: 20px; padding: 0; } }
-        .photo-card {
-            background: white; padding: 8px 8px 24px 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.04);
-            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.5s ease-in-out;
-            cursor: pointer; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        /* Organic Masonry Gallery */
+        .masonry-container {
+            column-count: 2;
+            column-gap: 15px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .photo-card:hover { transform: scale(1.1) rotate(0deg) !important; z-index: 50; box-shadow: 0 20px 40px rgba(0,0,0,0.1); opacity: 1 !important; }
-        .photo-wrapper { width: 100%; aspect-ratio: 1/1; background: #fdfdfd; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .photo-card img { max-width: 100%; max-height: 100%; object-fit: contain; }
         
+        @media (min-width: 768px) {
+            .masonry-container {
+                column-count: 3;
+                column-gap: 25px;
+                padding: 40px;
+            }
+        }
+
+        .masonry-item {
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 15px;
+            background: white;
+            padding: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.04);
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        @media (min-width: 768px) {
+            .masonry-item { margin-bottom: 25px; padding: 12px; }
+        }
+
+        .masonry-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(190, 24, 93, 0.1);
+            z-index: 10;
+        }
+
+        .masonry-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 2px;
+        }
+
+        /* Gallery Reveal Animation */
+        .masonry-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .masonry-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .agenda-grid { display: grid; grid-template-columns: 4rem 1fr; gap: 0.75rem; align-items: center; }
         .agenda-line-v { position: absolute; left: 2rem; top: 0; bottom: 0; width: 1px; background: #BE185D; opacity: 0.1; }
 
-        /* Generic Branch Component Style */
-        .branch-svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05)); }
-        
         /* Realistic Branch Definition */
         .wood { stroke: #3e2723; stroke-linecap: round; fill: none; }
         .blossom-light { fill: #fff0f5; }
@@ -490,9 +533,11 @@
             </div>
         </section>
 
+
+
+
         <!-- Gallery Section -->
-        <section class="py-16 bg-white overflow-hidden relative">
-            <!-- Branch Bottom Left -->
+        <section class="py-20 bg-white overflow-hidden relative">
             <div class="sakura-branch bottom-10 -left-10 w-64 md:w-96 opacity-40">
                 <svg viewBox="0 0 400 400">
                     <path class="wood" d="M0 400 Q150 350 250 200 T350 100" stroke-width="12" />
@@ -519,27 +564,26 @@
                     </g>
                 </svg>
             </div>
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12">
+                    <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-2">Gallery</h3>
+                    <h2 class="font-script text-6xl text-floral-dark">Our Memories</h2>
+                </div>
+                
+                <!-- New Masonry Layout -->
+                <div class="masonry-container" id="gallery-masonry">
+                    <!-- Images will be injected here -->
+                </div>
 
-            <div class="text-center mb-12">
-                <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-2">Moments</h3>
-                <h2 class="font-script text-6xl text-floral-dark">Our Memories</h2>
-            </div>
-            
-            <div class="max-w-4xl mx-auto px-4">
-                <div id="gallery-grid" class="gallery-container">
-                    <div class="photo-card" style="transform: rotate(-2deg);"><div class="photo-wrapper"><img></div></div>
-                    <div class="photo-card" style="transform: rotate(3deg);"><div class="photo-wrapper"><img></div></div>
-                    <div class="photo-card" style="transform: rotate(-1deg);"><div class="photo-wrapper"><img></div></div>
-                    <div class="photo-card" style="transform: rotate(2deg);"><div class="photo-wrapper"><img></div></div>
-                    <div class="photo-card" style="transform: rotate(1deg);"><div class="photo-wrapper"><img></div></div>
-                    <div class="photo-card" style="transform: rotate(-3deg);"><div class="photo-wrapper"><img></div></div>
-                    <div class="photo-card" style="transform: rotate(2deg);"><div class="photo-wrapper"><img></div></div>
-                    <div class="photo-card" style="transform: rotate(-2deg);"><div class="photo-wrapper"><img></div></div>
+                <!-- Load More Button -->
+                <div class="text-center mt-12" id="load-more-container">
+                    <button onclick="loadRemainingImages()" class="px-10 py-3 border border-sakura text-floral-dark font-sans text-[10px] tracking-widest uppercase hover:bg-sakura/10 transition-all rounded-full">
+                        View More Moments
+                    </button>
                 </div>
             </div>
-
-            
         </section>
+        
 
         <!-- Location Section -->
         <section class="py-16 bg-champagne relative overflow-hidden">
@@ -688,30 +732,7 @@
             });
         }
 
-        function softSwap(card) {
-            const container = document.getElementById('gallery-grid');
-            if (!container) return;
-            const cards = Array.from(container.children);
-            const cardIndex = cards.indexOf(card);
-            let targetIndex = Math.floor(Math.random() * cards.length);
-            while(targetIndex === cardIndex) targetIndex = Math.floor(Math.random() * cards.length);
-            const targetCard = cards[targetIndex];
-            card.style.opacity = '0';
-            targetCard.style.opacity = '0';
-            setTimeout(() => {
-                const nextTarget = targetCard.nextSibling;
-                const nextCard = card.nextSibling;
-                if (nextCard === targetCard) container.insertBefore(targetCard, card);
-                else if (nextTarget === card) container.insertBefore(card, targetCard);
-                else { container.insertBefore(card, nextTarget); container.insertBefore(targetCard, nextCard); }
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    targetCard.style.opacity = '1';
-                    card.style.transform = `rotate(${(Math.random()*6-3).toFixed(1)}deg) scale(1)`;
-                    targetCard.style.transform = `rotate(${(Math.random()*6-3).toFixed(1)}deg) scale(1)`;
-                }, 100);
-            }, 1500);
-        }
+ 
 
         function createPetal() {
             const container = document.getElementById('petal-container');
@@ -729,6 +750,44 @@
             petal.style.animationDelay = (Math.random() * 2) + 's';
             container.appendChild(petal);
             setTimeout(() => petal.remove(), (duration + 2) * 1000);
+        }
+
+                function loadMoreImages() {
+            const container = document.getElementById('gallery-masonry');
+            const start = currentBatch * BATCH_SIZE;
+            const end = start + BATCH_SIZE;
+            const batch = pictures.slice(start, end);
+
+            batch.forEach((src, i) => {
+                const item = document.createElement('div');
+                item.className = 'masonry-item';
+                
+                // Varied aspect ratios for a more organic look (simulated with placeholder logic)
+                const isTall = (i + start) % 3 === 0;
+                
+                item.innerHTML = `
+                    <img src="${src}" alt="Memory ${start + i + 1}" loading="lazy" 
+                         class="${isTall ? 'min-h-[250px]' : 'min-h-[180px]'}"
+                         onerror="this.src='https://picsum.photos/seed/${start + i}/400/${isTall ? '600' : '400'}'">
+                `;
+                container.appendChild(item);
+                
+                // Staggered reveal
+                setTimeout(() => {
+                    item.classList.add('visible');
+                }, i * 100);
+            });
+
+            currentBatch++;
+            
+            if (currentBatch * BATCH_SIZE >= pictures.length) {
+                const btnContainer = document.getElementById('load-more-container');
+                if(btnContainer) btnContainer.style.display = 'none';
+            }
+        }
+
+        function loadRemainingImages() {
+            loadMoreImages();
         }
 
         window.onload = () => {
@@ -771,50 +830,7 @@
     </script>
 
 
-    <script>
-// Array of all 25 pictures in your /pic folder
-const pictures = Array.from({length: 25}, (_, i) => `pic/pic${i+1}.png`);
-
-const cards = document.querySelectorAll('#gallery-grid .photo-card img');
-let indices = [];
-
-// Initialize: pick first 8 random pictures
-function initGallery() {
-    indices = [];
-    while (indices.length < cards.length) {
-        const idx = Math.floor(Math.random() * pictures.length);
-        if (!indices.includes(idx)) indices.push(idx);
-    }
-    cards.forEach((img, i) => img.src = pictures[indices[i]]);
-}
-
-// Cycle pictures every 5 seconds
-function cycleGallery() {
-    setInterval(() => {
-        // Pick a random card to change
-        const cardIndex = Math.floor(Math.random() * cards.length);
-        let newPicIndex;
-        do {
-            newPicIndex = Math.floor(Math.random() * pictures.length);
-        } while (indices.includes(newPicIndex)); // avoid duplicates
-
-        indices[cardIndex] = newPicIndex;
-        const img = cards[cardIndex];
-
-        // Optional: smooth fade out / fade in
-        img.style.opacity = 0;
-        setTimeout(() => {
-            img.src = pictures[newPicIndex];
-            img.style.opacity = 1;
-        }, 1000);
-    }, 8000);
-}
-
-// Run on page load
-initGallery();
-cycleGallery();
-</script>
-
+  
 
     
     
