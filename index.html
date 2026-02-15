@@ -659,11 +659,12 @@
     </div>
 
     <script>
-        const pictures = Array.from({length: 25}, (_, i) => `pic/pic${i+1}.png`);
+        const pictures = Array.from({length: 26}, (_, i) => `pic/pic${i+1}.png`);
         let currentBatch = 0;
         const BATCH_SIZE = 8; // Load 8 images (2 rows on desktop) at a time
 
         function openInvitation() {
+            window.scrollTo(0, 0);
             document.getElementById('home-layer').classList.add('opened');
             document.body.classList.remove('locked');
             
@@ -735,6 +736,7 @@
         window.onload = () => {
             setInterval(createPetal, 350); 
             for(let i=0; i<20; i++) setTimeout(createPetal, i * 150);
+            window.scrollTo(0, 0);
         };
     </script>
 
