@@ -9,7 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500&family=Kantumruy+Pro:wght@300;400;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@400;500;600&display=swap" rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {
@@ -65,13 +66,13 @@
 
         /* Bird Animation Styles */
         .bird-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
             top: 0;
             left: 0;
             pointer-events: none;
-            z-index: 25;
+            z-index: 99; 
             overflow: hidden;
         }
 
@@ -199,10 +200,28 @@
             font-size: 2rem;
             cursor: pointer;
         }
+        .khmer-text {
+            font-family: 'Noto Sans Khmer', sans-serif;
+            text-transform: none;          /* Important: remove uppercase */
+            letter-spacing: 0.05em;        /* Khmer needs less spacing */
+            font-size: 1.05em;             /* Slightly bigger for balance */
+        }        
     </style>
 </head>
 <body class="bg-champagne text-gray-800 antialiased overflow-x-hidden locked">
-
+    <!-- Global Persistent Bird Layer - ON TOP -->
+    <div class="bird-container">
+        <svg class="bird bird-1" viewBox="0 0 100 100" fill="currentColor">
+            <path class="body" d="M10,50 Q40,40 70,50 Q90,55 95,50 Q85,45 60,40 L10,50 Z" />
+            <path class="wing-left" d="M35,45 Q50,0 75,35" fill="currentColor" opacity="0.8"/>
+            <path class="wing-right" d="M40,55 Q55,90 75,60" fill="currentColor" opacity="0.6"/>
+        </svg>
+        <svg class="bird bird-2" viewBox="0 0 100 100" fill="currentColor">
+            <path class="body" d="M10,50 Q40,40 70,50 Q90,55 95,50 Q85,45 60,40 L10,50 Z" />
+            <path class="wing-left" d="M35,45 Q50,0 75,35" fill="currentColor" opacity="0.8"/>
+            <path class="wing-right" d="M40,55 Q55,90 75,60" fill="currentColor" opacity="0.6"/>
+        </svg>
+    </div>
 
     <!-- Home Page Layer -->
     <div id="home-layer">
@@ -275,14 +294,17 @@
 
         <div class="envelope-card">
             <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-6">JOIN US IN CELEBRATING</h3>
-            <h2 class="font-script text-6xl md:text-7xl text-floral-dark">Reaksmey2</h2>
+            <h2 class="font-script text-6xl md:text-7xl text-floral-dark">Reaksmey</h2>
             <span class="font-serif text-xl italic text-gray-400 block my-2">&</span>
             <h2 class="font-script text-6xl md:text-7xl text-floral-dark">Sachy</h2>
+
             
             <div class="mt-6 font-serif text-sm tracking-widest text-gray-600 uppercase">
-                <p>March 27, 2026</p>
+                <p>Friday, 27th March 2026</p>
+                <p class="khmer-text">ថ្ងៃសុក្រ ទី២៧ ខែមីនា ឆ្នាំ ២០២៦</p>
                 <div class="w-8 h-[1px] bg-sakura mx-auto my-2"></div>
-                <p>OCIC Wedding Center, Phnom Penh</p>
+                <p>OCIC Wedding Center, Hall-C</p>
+                <p class="khmer-text">មជ្ឈមណ្ឌលពិព័រណ៍ និងសន្និបាត OCIC, អាគារC, ភ្នំពេញ</p>
             </div>
 
             <div class="relative inline-block mt-8">
@@ -294,6 +316,7 @@
                 </div>
             </div>
             <p class="mt-6 font-sans text-[9px] uppercase tracking-[0.3em] text-floral-dark font-medium animate-pulse">Tap the seal to open</p>
+            <p class="khmer-text text-[9px] text-floral-dark font-medium animate-pulse">សូមចុចលើប៊ូតុងដើម្បីបើក</p>
         </div>
     </div>
 
@@ -339,8 +362,9 @@
             
             <div class="max-w-4xl mx-auto px-5 relative z-10">
                 <div class="text-center mb-10 md:mb-16">
-                    <h3 class="font-serif text-[10px] uppercase tracking-[0.4em] text-gray-400 mb-2">Together with Families</h3>
+                    <h3 class="font-serif text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-2">Together with Friends & Families</h3>
                     <h2 class="font-script text-6xl md:text-8xl text-floral-dark">The Couple</h2>
+                    <h3 class="khmer-text text-[15px] text-gray-400 mb-2">គូស្វាមីភរិយាថ្មី<h3>
                 </div>
                 
                 <div class="flex flex-col max-w-lg md:max-w-2xl mx-auto relative">
@@ -354,7 +378,9 @@
                         </div>
                         <div class="flex-1 flex flex-col justify-center border-l-2 border-sakura/20 pl-4 py-2">
                             <h4 class="font-script text-4xl sm:text-7xl text-floral-dark leading-none">Reaksmey</h4>
+                            <h4 class="khmer-text text-4xl sm:text-7xl text-floral-dark leading-none">នរិន្ទរស្មី</h4>
                             <p class="font-serif text-[9px] sm:text-[12px] uppercase tracking-[0.3em] text-gray-400 mt-2">The Groom</p>
+                            <p class="khmer-text text-[9px] sm:text-[12px] text-gray-400">កូនកំលោះ</p>
                         </div>
                     </div>
 
@@ -375,7 +401,9 @@
                         </div>
                         <div class="flex-1 flex flex-col justify-center border-r-2 border-sakura/20 pr-4 py-2 text-right">
                             <h4 class="font-script text-4xl sm:text-7xl text-floral-dark leading-none">&nbsp;&nbsp;Sachy&nbsp;&nbsp;&nbsp;</h4>
+                            <h4 class="khmer-text text-4xl sm:text-7xl text-floral-dark leading-none">សាជី</h4>
                             <p class="font-serif text-[9px] sm:text-[12px] uppercase tracking-[0.3em] text-gray-400 mt-2">The Bride</p>
+                            <p class="khmer-text text-[9px] sm:text-[12px] text-gray-400">កូនក្រម៉ំ</p>
                         </div>
                     </div>
                 </div>
@@ -421,18 +449,19 @@
                 <div class="mb-10">
                     <i class="fas fa-envelope-open-text text-sakura text-3xl mb-6 block"></i>
                     <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-2">Our Invitation</h3>
-                    <h2 class="font-script text-6xl text-floral-dark mb-8">Honorable Guests</h2>
+                    <h2 class="font-script text-6xl text-floral-dark mb-4">Honorable Guests</h2>
+                    <h3 class="khmer-text text-[15px] text-gray-400 mb-2">ជូនទៅដល់ភ្ញៀវកិត្តិយសរបស់យើង</h3>
                 </div>
 
                 <!-- Khmer Version -->
-                <div class="mb-12">
+                <div class="mb-3">
                     <p class="font-khmer text-gray-700 leading-loose text-base md:text-lg italic">
                         យើងខ្ញុំមានកិត្តិយស សូមគោរពអញ្ជើញឯកឧត្តម លោកជំទាវ លោកអ្នកឧកញ៉ា លោក លោកស្រី អ្នកនាងកញ្ញា និងមិត្តភក្តិទាំងអស់ ចូលរួមជាអធិបតី និងជាសាក្សីក្នុងពិធីមង្គលការរបស់ពួកយើងខ្ញុំ។ ការមានវត្តមានរបស់អស់លោកអ្នក គឺជាសិរីសួស្តី និងជាកិត្តិយសដ៏ខ្ពង់ខ្ពស់បំផុតសម្រាប់គ្រួសារយើងខ្ញុំទាំងពីរ។
                     </p>
                 </div>
 
                 <!-- Divider -->
-                <div class="flex items-center justify-center gap-4 mb-12">
+                <div class="flex items-center justify-center gap-4 mb-3">
                     <div class="h-[1px] w-12 bg-sakura/30"></div>
                     <span class="font-serif text-sakura italic">with love</span>
                     <div class="h-[1px] w-12 bg-sakura/30"></div>
@@ -453,7 +482,7 @@
 
 
         <!-- DECORATIVE DIVIDER BTW INVITATION & AGENDA -->
-        <div class="relative py-12 bg-floral-pink/10">
+        <div class="relative bt-12 pb-2 bg-floral-pink/10">
             <div class="flex items-center justify-center">
                 <div class="w-full max-w-[280px] md:max-w-[400px] h-24 overflow-hidden">
                    <svg viewBox="0 0 400 100" class="w-full h-full opacity-60">
@@ -475,7 +504,7 @@
         </div>
 
         <!-- Program Section -->
-        <section class="py-16 bg-floral-pink/20 relative overflow-hidden">
+        <section class="pt-2 pb-16 bg-floral-pink/20 relative overflow-hidden">
             <!-- Branch Top Right -->
             <div class="sakura-branch top-20 -right-20 w-64 md:w-96 opacity-30 transform scale-x-[-1]">
                 <svg viewBox="0 0 400 400">
@@ -508,6 +537,7 @@
                 <div class="text-center mb-10">
                     <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-2">Program</h3>
                     <h2 class="font-script text-6xl text-floral-dark">Our Day</h2>
+                    <h3 class="khmer-text text-[15px] text-gray-400 mb-2">កម្មវិធីថ្ងៃអាពាហ៍ពិពាហ៍</h3>
                 </div>
                 
                 <div class="relative space-y-4">
@@ -560,6 +590,7 @@
             <div class="text-center mb-12">
                 <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-2">Moments</h3>
                 <h2 class="font-script text-6xl text-floral-dark">Our Memories</h2>
+                <h3 class="khmer-text text-[15px] text-gray-400 mb-2">រូបភាពអនុស្សាវរីយ៍</h3>
             </div>
             
             <div class="max-w-5xl mx-auto px-4">
@@ -568,14 +599,13 @@
                 </div>
                 
                 <div class="text-center mt-12" id="load-more-container">
-                    <button onclick="loadMoreImages()" class="px-12 py-3 border border-sakura text-floral-dark font-sans text-[10px] tracking-widest uppercase hover:bg-sakura/10 transition-all rounded-full">
+                    <button onclick="loadMoreImages()" 
+                        class="px-12 py-3 border border-sakura bg-floral-dark text-white rounded-full font-sans text-[10px] tracking-widest uppercase hover:opacity-90 transition-all shadow-md">
                         View More Moments
                     </button>
                 </div>
             </div>
             </div>
-
-            
         </section>
 
         <!-- Location Section -->
@@ -609,15 +639,18 @@
 
             <div class="max-w-2xl mx-auto px-6 text-center relative z-10">
                 <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-2">Location</h3>
-                <h2 class="font-script text-6xl text-floral-dark mb-10">The Venue</h2>
+                <h2 class="font-script text-6xl text-floral-dark mb-2">The Venue</h2>
+                <h3 class="khmer-text text-[15px] text-gray-400 mb-2">ទីតាំងប្រារព្ធពិធី</h3>
                 <div class="bg-white p-10 rounded-2xl shadow-sm border border-pink-50 inline-block w-full">
                     <div class="mb-6">
                         <i class="fas fa-map-marker-alt text-floral-dark text-3xl mb-4"></i>
                         <h4 class="font-serif text-2xl mb-2 text-floral-dark">OCIC Wedding Center</h4>
-                        <p class="font-khmer text-gray-600 text-sm">Building C, Chroy Changvar<br>Phnom Penh, Cambodia</p>
+                        <h4 class="khmer-text text-1.5xl mb-10 text-floral-dark"> មជ្ឈមណ្ឌលពិព័រណ៍ និងសន្និបាត OCIC </h4>
+                        <p class="font-khmer text-gray-600 text-sm">Hall C, Chroy Changvar, Phnom Penh</p>
+                        <p class="khmer-text text-gray-600 text-sm">អគារC, ជ្រោយចង្វារ, រាជធានីភ្នំពេញ</p>
                     </div>
                     <a href="https://www.google.com/maps/search/?api=1&query=OCIC+Wedding+Center+Chroy+Changvar" target="_blank" class="inline-flex items-center justify-center px-8 py-4 bg-floral-dark text-white rounded-full font-sans text-[10px] tracking-widest uppercase hover:opacity-90 transition shadow-md">
-                        <i class="fas fa-location-arrow mr-3"></i> Open in Google Maps
+                        <i class="fas fa-location-arrow mr-3"></i> Open in Google Maps/ បើកផែនទី
                     </a>
                 </div>
             </div>
@@ -654,14 +687,28 @@
 
             <div class="max-w-md mx-auto px-6 text-center relative z-10">
                 <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-2">Best Wishes</h3>
-                <h2 class="font-script text-5xl text-floral-dark mb-6">Wedding Gift</h2>
+                <h2 class="font-script text-5xl text-floral-dark mb-2">Wedding Gift</h2>
+                <h3 class="khmer-text text-[15px] text-gray-400 mb-5">ចំណងដៃមង្គលការ</h3>
+
+                <div class="mb-8">
+                    <p class="font-serif text-gray-500 italic text-sm mb-2">"Having you with us is the greatest gift of all, and we are deeply grateful for your generous support as we begin our life together"</p>
+                    <p class="font-khmer text-gray-400 text-xs">វត្តមានរបស់លោកអ្នកគឺជាកាដូដ៏មានតម្លៃបំផុត, ហើយពួកយើងសូមថ្លែងអំណរគុណយ៉ាងជ្រាលជ្រៅចំពោះចំណងដៃសម្រាប់អនាគតរបស់ពួកយើង។</p>
+                </div>
+
+
                 <div class="bg-champagne p-6 rounded-2xl border border-pink-100 inline-block shadow-sm">
-                    <div class="w-32 h-32 bg-white flex items-center justify-center mb-4 mx-auto rounded-lg shadow-inner">
-                        <i class="fas fa-qrcode text-5xl text-gray-100"></i>
+                    <div class="w-60 h-60 bg-white flex items-center justify-center mb-4 mx-auto rounded-lg shadow-inner">
+                        <img src="qr.jpg" alt="QR Code" class="w-60 h-60 object-contain" />
                     </div>
                     <p class="font-bold text-floral-dark font-sans text-xs tracking-widest uppercase">ABA Bank</p>
-                    <p class="text-gray-400 text-[10px] font-sans">001 234 567 (Reaksmey)</p>
+                    <p class="text-gray-400 text-[10px] font-sans">016 845 509</p>
+                    <p class="text-gray-400 text-[10px] font-sans">PHALLA NORINREAKSMEY AND ROS SACHY</p>
                 </div>
+                <div class="mb-4"></div>
+                    <a href="https://acledabank.com.kh/acleda?payment_data=qWY5B2SAUfIhLblxzOtfu5ckLzMHjaSki6Ru0bsOyNK+ylPBgZ0sHH6BeGUscKoE0EUdaBQhJNtRZHfLms5Pi64P5kAG9I5FN2BdSyLy9NNX3bL4Hgq1dMxQ5rioD+RjwgnjAR2/OdIMUhrWWEucnsF+UmsFqur/4M0XfNfQFZsLxQeRXUVxxw3ay937ylnZXBnvyQP3hUCSkt2H7OsVUmPWPufJhJQY3DnSTS/cUFHmayxr7LyjoQ9hy3V7/sM+&key=khqr"
+                        target="_blank" class="inline-flex items-center justify-center px-8 py-4 bg-floral-dark text-white rounded-full font-sans text-[10px] tracking-widest uppercase hover:opacity-90 transition shadow-md">
+                        <i></i>♥︎♡♥︎♡ Send Gift ♥︎♡♥︎♡
+                    </a>
             </div>
         </section>
 
@@ -688,12 +735,12 @@
                 </svg>
             </div>
             <p class="font-script text-3xl text-floral-dark mb-2">Reaksmey & Sachy</p>
-            <p class="font-serif uppercase tracking-[0.4em] text-[8px] text-gray-400">27 . 03 . 2026</p>
+            <p class="font-serif uppercase tracking-[0.2em] text-[18px] text-gray-400">27 . March . 2026</p>
         </footer>
     </div>
 
     <script>
-        const pictures = Array.from({length: 26}, (_, i) => `pic/pic${i+1}.webp`);
+        const pictures = Array.from({length: 28}, (_, i) => `pic/pic${i+1}.webp`);
         let currentBatch = 0;
         const BATCH_SIZE = 8; // Load 8 images (2 rows on desktop) at a time
 
