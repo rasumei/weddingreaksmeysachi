@@ -26,7 +26,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500&family=Kantumruy+Pro:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@400;500;600&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Taprom&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -222,7 +224,13 @@
             text-transform: none;          /* Important: remove uppercase */
             letter-spacing: 0.05em;        /* Khmer needs less spacing */
             font-size: 1.05em;             /* Slightly bigger for balance */
-        }        
+        }  
+        .taprom-regular {
+        font-family: "Taprom", system-ui;
+        font-weight: 400;
+        font-style: normal;
+        }
+
     </style>
 </head>
 <body class="bg-champagne text-gray-800 antialiased overflow-x-hidden locked">
@@ -381,7 +389,7 @@
                 <div class="text-center mb-10 md:mb-16">
                     <h3 class="font-serif text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-2">Together with Friends & Families</h3>
                     <h2 class="font-script text-6xl md:text-8xl text-floral-dark">The Couple</h2>
-                    <h3 class="khmer-text text-[15px] text-gray-400 mb-2">គូស្វាមីភរិយាថ្មី<h3>
+                    <h3 class="taprom-regular text-[15px] text-gray-400 mb-2">គូស្វាមីភរិយាថ្មី<h3>
                 </div>
                 
                 <div class="flex flex-col max-w-lg md:max-w-2xl mx-auto relative">
@@ -394,8 +402,8 @@
                             </div>
                         </div>
                         <div class="flex-1 flex flex-col justify-center border-l-2 border-sakura/20 pl-4 py-2">
-                            <h4 class="font-script text-4xl sm:text-7xl text-floral-dark leading-none">Reaksmey</h4>
-                            <h4 class="khmer-text text-4xl sm:text-7xl text-floral-dark leading-none">នរិន្ទរស្មី</h4>
+                            <h4 class="font-script text-4xl sm:text-7xl text-floral-dark leading-relaxed">Reaksmey</h4>
+                            <h4 class="taprom-regular text-2xl sm:text-5xl text-floral-dark leading-none">នរិន្ទរស្មី</h4>
                             <p class="font-serif text-[9px] sm:text-[12px] uppercase tracking-[0.3em] text-gray-400 mt-2">The Groom</p>
                             <p class="khmer-text text-[9px] sm:text-[12px] text-gray-400">កូនកំលោះ</p>
                         </div>
@@ -417,8 +425,8 @@
                             </div>
                         </div>
                         <div class="flex-1 flex flex-col justify-center border-r-2 border-sakura/20 pr-4 py-2 text-right">
-                            <h4 class="font-script text-4xl sm:text-7xl text-floral-dark leading-none">&nbsp;&nbsp;Sachy&nbsp;&nbsp;&nbsp;</h4>
-                            <h4 class="khmer-text text-4xl sm:text-7xl text-floral-dark leading-none">សាជី</h4>
+                            <h4 class="font-script text-4xl sm:text-7xl text-floral-dark leading-relaxed">&nbsp;&nbsp;Sachy&nbsp;&nbsp;&nbsp;</h4>
+                            <h4 class="taprom-regular text-2xl sm:text-5xl text-floral-dark leading-none">សាជី</h4>
                             <p class="font-serif text-[9px] sm:text-[12px] uppercase tracking-[0.3em] text-gray-400 mt-2">The Bride</p>
                             <p class="khmer-text text-[9px] sm:text-[12px] text-gray-400">កូនក្រម៉ំ</p>
                         </div>
@@ -519,7 +527,7 @@
                 </div>
                 <!--detail khmer-->
                 <div class="mb-8">
-                    <p class="font-khmer text-gray-700 leading-loose text-sm md:text-lg italic">
+                    <p class="font-khmer text-gray-700 leading-loose text-sm md:text-sm italic">
                         ដែលនឹងប្រព្រឹត្តទៅនៅ ថ្ងៃសុក្រ ទី២៧ ខែមីនា ឆ្នាំ ២០២៦<br>
                         ត្រូវនឹងថ្ងៃ៩កើត ខែចេត្រ ឆ្នាំម្សាញ់<br>
                         សប្តស័ក ព.ស.២៥៦៩ វេលាម៉ោង ៥:០០នាទីល្ងាច<br>
@@ -545,8 +553,8 @@
                 <!-- Parents Names Side by Side (Optimized for Mobile) ENG-->
                 <div class="flex flex-row justify-center gap-2 sm:gap-12 mb-6 sm:mb-8">
                     <!-- Groom's Parents -->
-                    <div class="flex-[1.2] text-center px-2">
-                        <p class="font-serif text-sakura-dark font-extrabold mb-1">His Excellency <b>Kim Phalla</b>
+                    <div class="flex-[1.5] text-center px-2">
+                        <p class="font-sans text-[14px] tracking-tight text-sakura-dark font-extrabold mb-1">His Excellency <b>Kim Phalla</b>
                             <br>Lok Chumteav <b>Seng Sarith</b></p>
                     </div>
 
@@ -555,17 +563,17 @@
 
                     <!-- Bride's Parents -->
                     <div class="flex-1 text-center px-2">
-                        <p class="font-serif text-sakura-dark font-extrabold mb-1">Mr. <b>Thach Sokrous</b><br>Mrs. <b>Leap Sunly</b></p>
+                        <p class="font-sans text-[14px] tracking-tight text-sakura-dark font-extrabold mb-1">Mr. <b>Thach Sokrous</b><br>Mrs. <b>Leap Sunly</b></p>
                     </div>
                 </div>
 
                 <div class="mb-1">
-                    <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-2">Our Invitation</h3>
+                    <h3 class="font-serif text-lg uppercase tracking-[0.2em] text-gray-400 mb-2">Our Invitation</h3>
                 </div>
 
                 <!-- English Version -->
                 <div class="mb-8">
-                    <p class="font-serif text-gray-600 leading-relaxed text-lg md:text-xl">
+                    <p class="font-serif text-gray-700 leading-relaxed text-lg md:text-xl italic font-bold">
                         It is with great joy and deep respect that we invite our honorable guests, family, 
                         and friends to the wedding of our children, to witness the beginning of their new chapter. Your presence on 
                         this special day would bring us immense happiness and mean the world to our families. 
@@ -576,20 +584,20 @@
                 <div class="flex flex-row justify-center gap-1 sm:gap-2 mb-12 sm:mb-16">
                     <!-- Groom's Parents -->
                     <div class="text-center px-2">
-                        <h4 class="font-serif text-[16px] sm:text-sm tracking-widest text-sakura-dark uppercase mb-3 opacity-70">Groom</h4>
-                        <p class="font-serif text-[18px] text-sakura-dark font-bold mb-1">Phalla Norinreaksmey</b></p>
+                        <h4 class="font-sans text-[14px] sm:text-sm tracking-widest text-sakura-dark uppercase mb-3 opacity-70">Groom</h4>
+                        <p class="font-sans text-[16px] text-sakura-dark font-bold tracking-tight mb-1">Phalla Norinreaksmey</b></p>
                     </div>
 
                     <!-- Vertical divider line for mobile -->
                     <div class="text-center px-2">
                         <br>
-                        <h4 class="font-serif text-[16px] sm:text-sm tracking-widest text-sakura-dark uppercase mb-3 opacity-70">and</h4>
+                        <h4 class="font-script text-[16px] sm:text-sm tracking-widest text-sakura-dark uppercase mb-3 opacity-70">and</h4>
                     </div>
 
                     <!-- Bride's Parents -->
                     <div class="text-center px-2">
-                        <h4 class="font-serif text-[16px] sm:text-sm tracking-widest text-sakura-dark uppercase mb-3 opacity-70">Bride</h4>
-                        <p class="font-serif text-[18px] text-sakura-dark font-bold mb-1">Ros Sachy</b></p>
+                        <h4 class="font-sans text-[14px] sm:text-sm tracking-widest text-sakura-dark uppercase mb-3 opacity-70">Bride</h4>
+                        <p class="font-sans text-[16px] text-sakura-dark font-bold tracking-tight mb-1">Ros Sachy</b></p>
                     </div>
                 </div>
                 <!--detail khmer-->
@@ -664,7 +672,7 @@
                 <div class="text-center mb-10">
                     <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-2">Program</h3>
                     <h2 class="font-script text-6xl text-floral-dark">Our Day</h2>
-                    <h3 class="khmer-text text-[15px] text-gray-400 mb-2">កម្មវិធីថ្ងៃអាពាហ៍ពិពាហ៍</h3>
+                    <h3 class="taprom-regular text-[15px] text-gray-400 mb-2">កម្មវិធីថ្ងៃអាពាហ៍ពិពាហ៍</h3>
                 </div>
                 
                 <div class="relative space-y-4">
@@ -717,7 +725,7 @@
             <div class="text-center mb-12">
                 <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-2">Moments</h3>
                 <h2 class="font-script text-6xl text-floral-dark">Our Memories</h2>
-                <h3 class="khmer-text text-[15px] text-gray-400 mb-2">រូបភាពអនុស្សាវរីយ៍</h3>
+                <h3 class="taprom-regular text-[15px] text-gray-400 mb-2">រូបភាពអនុស្សាវរីយ៍</h3>
             </div>
             
             <div class="max-w-5xl mx-auto px-4">
@@ -767,7 +775,7 @@
             <div class="max-w-2xl mx-auto px-6 text-center relative z-10">
                 <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-2">Location</h3>
                 <h2 class="font-script text-6xl text-floral-dark mb-2">The Venue</h2>
-                <h3 class="khmer-text text-[15px] text-gray-400 mb-2">ទីតាំងប្រារព្ធពិធី</h3>
+                <h3 class="taprom-regular text-[15px] text-gray-400 mb-2">ទីតាំងប្រារព្ធពិធី</h3>
                 <div class="bg-white p-10 rounded-2xl shadow-sm border border-pink-50 inline-block w-full">
                     <div class="mb-6">
                         <i class="fas fa-map-marker-alt text-floral-dark text-3xl mb-4"></i>
@@ -814,12 +822,12 @@
 
             <div class="max-w-md mx-auto px-6 text-center relative z-10">
                 <h3 class="font-serif text-[10px] uppercase tracking-[0.5em] text-gray-400 mb-2">Best Wishes</h3>
-                <h2 class="font-script text-5xl text-floral-dark mb-2">Wedding Gift</h2>
-                <h3 class="khmer-text text-[15px] text-gray-400 mb-5">ចំណងដៃមង្គលការ</h3>
+                <h2 class="font-script text-5xl text-floral-dark mb-1">Wedding Gift</h2>
+                <h3 class="taprom-regular text-[15px] text-gray-400 mb-5">ចំណងដៃមង្គលការ</h3>
 
                 <div class="mb-8">
                     <p class="font-serif text-gray-500 italic text-sm mb-2">"Having you with us is the greatest gift of all, and we are deeply grateful for your generous support as we begin our life together"</p>
-                    <p class="font-khmer text-gray-400 text-xs">វត្តមានរបស់លោកអ្នកគឺជាកាដូដ៏មានតម្លៃបំផុត, ហើយពួកយើងសូមថ្លែងអំណរគុណយ៉ាងជ្រាលជ្រៅចំពោះចំណងដៃសម្រាប់អនាគតរបស់ពួកយើង។</p>
+                    <p class="font-khmer text-gray-400 italic text-xs">"វត្តមានរបស់លោកអ្នកគឺជាកាដូដ៏មានតម្លៃបំផុត, ហើយពួកយើងសូមថ្លែងអំណរគុណយ៉ាងជ្រាលជ្រៅចំពោះចំណងដៃសម្រាប់អនាគតរបស់ពួកយើង។"</p>
                 </div>
 
 
@@ -861,7 +869,7 @@
                     </g>
                 </svg>
             </div>
-            <p class="font-script text-3xl text-floral-dark mb-2">Reaksmey & Sachy</p>
+            <p class="font-script text-4xl text-floral-dark mb-2">Reaksmey & Sachy</p>
             <p class="font-serif uppercase tracking-[0.2em] text-[18px] text-gray-400">27 . March . 2026</p>
         </footer>
     </div>
